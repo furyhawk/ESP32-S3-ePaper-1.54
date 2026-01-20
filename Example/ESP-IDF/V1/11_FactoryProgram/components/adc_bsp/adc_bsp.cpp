@@ -34,18 +34,16 @@ float adc_bsp::get_vbatVoltage()
     return VbatVoltage;
 }
 
-/*4.12V满电 3*/
+/*4.12V 满电 3*/
 uint8_t adc_bsp::get_Batterylevel() 
 {
     float vol = get_vbatVoltage();
-    if(vol < 3.0)
-    {
+    if(vol < 3.0) {
         return 0;
     }
-    if(vol > 4.12)
-    {
+    if(vol > 4.12) {
         return 100;
     }
-    float level = (vol / 4.12) * 100;
+    float level = ((vol-3.0) / 1.12) * 100;   //1.12 = 4.12 - 3.0
     return (uint8_t)level;
 }
